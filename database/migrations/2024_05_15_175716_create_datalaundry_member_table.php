@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('datalaundry_member', function (Blueprint $table) {
             $table->id();
+            $table->date('tgl_transaksi');
+            $table->unsignedBigInteger('member_id');
+            $table->foreign('member_id')->references('id')->on('member');
+            $table->unsignedBigInteger('id_pegawai');
+            $table->foreign('id_pegawai')->references('id')->on('pegawai');
+            $table->text('keterangan');
+            $table->enum('status_laundry', ['menunggu', 'diproses', 'selesai']);
+            $table->enum('status_pembayaran', ['bayar', 'belum']);
+            $table->text('lokasi_kirim');
             $table->timestamps();
         });
     }
