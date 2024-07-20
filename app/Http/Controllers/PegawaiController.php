@@ -10,10 +10,8 @@ use Illuminate\Http\RedirectResponse;
 class PegawaiController extends Controller
 {
     public function show(string $id):View {
-
-        return view('pegawai.profile',[
-        'pegawai' => Pegawai::findOrFail($id)
-        ]);
+        $pegawai = Pegawai::findOrFail($id);
+        return view('pegawai.show', compact('pegawai'));
     }
 
     public function index(): View
@@ -30,6 +28,7 @@ class PegawaiController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'id_pegawai' => 'required|min:5|unique:pegawai,id_pegawai',
             'nama_pegawai' => 'required|min:5',
             'password' => 'required|min:5',
             'alamat' => 'required|min:5',
@@ -38,6 +37,7 @@ class PegawaiController extends Controller
         ]);
 
         Pegawai::create([
+            'id_pegawai' => $request->id_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'password' => md5($request->password),
             'alamat' => $request->alamat,
@@ -48,7 +48,7 @@ class PegawaiController extends Controller
         return redirect()->route('pegawai.index')->with('success', 'User berhasil ditambahkan!');
     }
 
-    public function edit(string $id): View
+    public function edit($id)
     {
         $pegawai = Pegawai::findOrFail($id);
 
@@ -59,20 +59,22 @@ class PegawaiController extends Controller
     {
         //validate form
         $request->validate([
-            'nama_pegawai'  => 'required|min:5',
-            'password'      => 'required|min:5',
-            'alamat'        => 'required|min:5',
-            'no_hp'         => 'required|min:5',
-            'jabatan'       => 'required'
+            'id_pegawai' => 'required|min:5|unique:pegawai,id_pegawai',
+            'nama_pegawai' => 'required|min:5',
+            'password' => 'required|min:5',
+            'alamat' => 'required|min:5',
+            'no_hp' => 'required|min:5',
+            'jabatan' => 'required',
         ]);
 
         $pegawai = Pegawai::findOrFail($id);
         $pegawai->update([
-                'nama_pegawai'  => $request->nama_pegawai,
-                'password'  => md5($request->password),
-                'alamat'     => $request->alamat,
-                'no_hp'     => $request->no_hp,
-                'jabatan'     => $request->jabatan
+            'id_pegawai' => $request->id_pegawai,
+            'nama_pegawai' => $request->nama_pegawai,
+            'password' => md5($request->password),
+            'alamat' => $request->alamat,
+            'no_hp' => $request->no_hp,
+            'jabatan' => $request->jabatan,
             ]);
 
         return redirect()->route('pegawai.index')->with(['success' => 'Data Berhasil Diubah!']);

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="section-header">
-    <h1>Halaman Pegawai</h1>
+    <h1>Halaman Pembelian Barang</h1>
     <div class="section-header-breadcrumb">
         <div class="breadcrumb-item active"><a href="#">Dasbor</a></div>
         <div class="breadcrumb-item"><a href="#">Tata Letak</a></div>
@@ -13,7 +13,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <a href="{{ route('pegawai.create') }}" class="btn btn-md btn-info mb-3">TAMBAH</a>
+                <a href="{{ route('pembelianbarang.create') }}" class="btn btn-md btn-info mb-3">TAMBAH</a>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -21,29 +21,25 @@
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Id Pegawai</th>
+                                <th scope="col">Kode Barang</th>
                                 <th scope="col">Nama Pegawai</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Alamat</th>
-                                <th scope="col">Nomor HP</th>
-                                <th scope="col">Jabatan</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Jumlah</th>
                                 <th scope="col" style="width: 20%">ACTIONS</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($pegawai as $index => $data_pegawai)
+                            @forelse ($pembelianbarang as $index => $data_pembelianbarang)
                             <tr>
                                 <td class="text-center">{{ $index + 1 }}</td>
-                                <td>{{ $data_pegawai->id_pegawai }}</td>
-                                <td>{{ $data_pegawai->nama_pegawai }}</td>
-                                <td>{{ $data_pegawai->password }}</td>
-                                <td>{{ $data_pegawai->alamat }}</td>
-                                <td>{{ $data_pegawai->no_hp }}</td>
-                                <td>{{ $data_pegawai->jabatan }}</td>
+                                <td>{{ $data_pembelianbarang->kode_barang }}</td>
+                                <td>{{ $data_pembelianbarang->pegawai->nama_pegawai }}</td>
+                                <td>{{ $data_pembelianbarang->tanggal }}</td>
+                                <td>{{ $data_pembelianbarang->jumlah }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('pegawai.show', $data_pegawai->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                    <a href="{{ route('pegawai.edit', $data_pegawai->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                                    <form action="{{ route('pegawai.destroy', $data_pegawai->id) }}" method="POST" style="display:inline;">
+                                    <a href="{{ route('pembelianbarang.show', $data_pembelianbarang->id) }}" class="btn btn-sm btn-dark">SHOW</a>
+                                    <a href="{{ route('pembelianbarang.edit', $data_pembelianbarang->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                    <form action="{{ route('pembelianbarang.destroy', $data_pembelianbarang->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda Yakin ?');">HAPUS</button>
@@ -52,16 +48,16 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="7" class="text-center">
+                                <td colspan="8" class="text-center">
                                     <div class="alert alert-danger">
-                                        Data Pegawai Belum Ada.
+                                        Data Pembelian Barang Belum Ada.
                                     </div>
                                 </td>
                             </tr>
                             @endforelse
                         </tbody>
                     </table>
-                    {{-- {{ $pegawai->links() }} --}}
+                    {{ $pembelianbarang->links() }}
                 </div>
             </div>
         </div>

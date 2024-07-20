@@ -19,4 +19,7 @@ class Member extends Model
         'no_hp',
         'tgl_join',
     ];
+    public function dataTambahanDataLaundryMember(){
+        return $this->hasOne(DataLaundryMember::class,'member_id');
+    }
 }

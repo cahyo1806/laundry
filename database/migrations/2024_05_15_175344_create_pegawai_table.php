@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->id();
+            $table->integer('id_pegawai');
             $table->string('nama_pegawai', 150);
             $table->string('password', 100);
             $table->text('alamat');

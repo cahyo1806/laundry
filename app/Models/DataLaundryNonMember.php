@@ -20,5 +20,10 @@ class DataLaundryNonMember extends Model
         'keterangan',
         'status_laundry',
         'status_pembayaran',
+        'lokasi_kirim'
     ];
+    public function pegawai()
+    {
+        return $this->belongsTo(Pegawai::class, 'id_pegawai');
+    }
 }
